@@ -1,0 +1,21 @@
+Dependencies to install:
+1. npm install redux react-redux
+ => Installs redux and react-redux
+
+2. npm install redux-thunk
+ => Installs the thunk middleware
+
+2. npm install react-redux-firebase rdux-firestore
+ => Installs firebase Dependencies for react and redux.
+
+3. npm install --save react-redux-firebase
+ => Installs firestore for redux in particular
+
+4. npm install --save react-redux-firebase
+ => Installs firebase for react and redux
+
+5. npm install --save redux-devtools-extension
+ => Install DevTools for redux to use with store enhancers
+
+NOTE:
+1. Keep data and code separate.

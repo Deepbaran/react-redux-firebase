@@ -1,13 +1,49 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createStore, applyMiddleware, compose } from 'redux';
+import rootReducer from './store/reducers/rootReducer';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { reduxFirestore, getFirestore } from 'redux-firestore';
+import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
+import fbConfig from './config/fbConfig';
+
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(
+    compose(
+      compose(
+        applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
+        reactReduxFirebase(fbConfig), // redux binding for firebase
+        reduxFirestore(fbConfig) // redux bindings for firestore
+      )
+    )
+  )
+);
+
+/*
+// applyMiddleware is a store enhancer. We can have multiple store enhancer.
+// thunk is a middleware that lies between dispatch and action.
+// We pass thunk to applyMiddleware to add extra functionality.
+// That functionality is now being that we can return a function inside our action creators which can then interact with the database.
+// thunk middleware is now enhancing our store with extra functionality
+// thunk holds the dispatch while the data is stored to the database, then it goes to action.
+// So, thunk makes the redux asynchronous.
+// withExtraArgument() allows us to add extra arguments as objects to thunk.
+
+// reduxFirestore() is the store enhancers that we use to link getFirestore and getFirebase with the config file where the Firebase configuration is situated. In this way, we link redux with our firebase project and  getFirestore and getFirebase know, which firebase project to link to.
+*/
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
+    {/* The value passed to the store attribute will be passed to all the child elements and also to all the descendent elements */}
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
