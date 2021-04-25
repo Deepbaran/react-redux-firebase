@@ -55,7 +55,9 @@ const mapStateToProps = state => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: 'projects' }])
+  firestoreConnect([
+    { collection: 'projects', limit: 10, orderBy: ['createdAt', 'desc'] }
+  ])
 )(Dashboard);
 // Connect is a HOC. react-redux is the glue library that glues react and redux.
 // We will connect the Dashboard component with the redux store.
