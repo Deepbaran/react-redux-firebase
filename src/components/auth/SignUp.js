@@ -25,7 +25,7 @@ class SignUp extends Component {
   render() {
     const { auth, authError } = this.props;
     if (auth.uid) {
-      return <Redirect to="/react-redux-firebase-app" />;
+      return <Redirect to="/react-redux-firebase" />;
     }
     return (
       <div className="container">

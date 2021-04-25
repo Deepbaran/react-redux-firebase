@@ -14,7 +14,7 @@ class Dashboard extends Component {
       // Logged in users will have uid
       // If user is not logged in, then redirect them to the signin page
       // Hiding some pages from certain users is called Route Guarding
-      return <Redirect to="/react-redux-firebase-app/signin" />;
+      return <Redirect to="/react-redux-firebase/signin" />;
     }
     return (
       <div className="dashboard container">

@@ -9,7 +9,7 @@ const ProjectList = ({ projects }) => {
         projects.map(project => {
           return (
             <Link
-              to={'/react-redux-firebase-app/project/' + project.id}
+              to={'/react-redux-firebase/project/' + project.id}
               key={project.id}
             >
               <ProjectSummary project={project} />
