@@ -4,11 +4,18 @@ import Notifications from './Notifications';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
+import { Redirect } from 'react-router-dom';
 
 class Dashboard extends Component {
   render() {
     // console.log(this.props);
-    const { projects } = this.props;
+    const { projects, auth } = this.props;
+    if (!auth.uid) {
+      // Logged in users will have uid
+      // If user is not logged in, then redirect them to the signin page
+      // Hiding some pages from certain users is called Route Guarding
+      return <Redirect to="/signin" />;
+    }
     return (
       <div className="dashboard container">
         <div className="row">
@@ -39,9 +46,10 @@ const mapStateToProps = state => {
 const mapStateToProps = state => {
   console.log(state);
   return {
-    projects: state.firestore.ordered.projects
+    projects: state.firestore.ordered.projects,
     // state is the data returned from the firebase and ordered.projects gives an ordered list of projects collection.
     // Because that collection is connected to this component using the firestoreConnect HOC.
+    auth: state.firebase.auth
   };
 };
 

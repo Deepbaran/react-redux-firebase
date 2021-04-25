@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
+import { Redirect } from 'react-router-dom';
+import moment from 'moment';
 
 const ProjectDetails = props => {
   // const id = props.match.params.id; // props.match is the props that React Router passed.
@@ -9,8 +11,11 @@ const ProjectDetails = props => {
   // If we put mario in place of :id in the url, then we will get the value mario in props.match.params.id
   // If we put 3 in place of :id in the url, then we will get the value 3 in props.match.params.id
 
+  const { project, auth } = props;
+  if (!auth.uid) {
+    return <Redirect to="/signin" />;
+  }
   console.log(props);
-  const { project } = props;
   if (project) {
     return (
       <div className="container section project-details">
@@ -23,7 +28,7 @@ const ProjectDetails = props => {
             <div>
               Posted by {project.authorFirstName} {project.authorLastName}
             </div>
-            <div>2nd September, 2am</div>
+            <div>{moment(project.createdAt.toDate()).calendar()}</div>
           </div>
         </div>
       </div>
@@ -41,9 +46,11 @@ const mapStateToProps = (state, ownProps) => {
   // ownProps is the default props of the component before we attach anything to it.
   const id = ownProps.match.params.id;
   const projects = state.firestore.data.projects;
+  // This firestore corresponds to the firestore property of the state object whose value is firestoreReducer
   const project = projects ? projects[id] : null;
   return {
-    project: project
+    project: project,
+    auth: state.firebase.auth
   };
 };
 
@@ -51,3 +58,7 @@ export default compose(
   connect(mapStateToProps),
   firestoreConnect([{ collection: 'projects' }])
 )(ProjectDetails);
+
+/*
+Here we needed to define which collection to connect with this component, so we are using firestoreConnect HOC along with the connect HOC that connects the component with redux state.
+*/

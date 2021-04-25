@@ -19,7 +19,11 @@ const store = createStore(
     compose(
       compose(
         applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
-        reactReduxFirebase(fbConfig), // redux binding for firebase
+        reactReduxFirebase(fbConfig, {
+          userProfile: 'users', // This specifies, which collection in the firestore will be synced with the profile property.
+          useFirestoreForProfile: true, // This will let the specified firestore collction sync with the profile property of the state object.
+          attachAuthIsReady: true // This will make sure that firebase checks for authentication first
+        }), // redux binding for firebase
         reduxFirestore(fbConfig) // redux bindings for firestore
       )
     )
@@ -39,13 +43,16 @@ const store = createStore(
 // reduxFirestore() is the store enhancers that we use to link getFirestore and getFirebase with the config file where the Firebase configuration is situated. In this way, we link redux with our firebase project and  getFirestore and getFirebase know, which firebase project to link to.
 */
 
-ReactDOM.render(
-  <Provider store={store}>
-    {/* The value passed to the store attribute will be passed to all the child elements and also to all the descendent elements */}
-    <App />
-  </Provider>,
-  document.getElementById('root')
-);
+// Render this to the DOM, after firebase authenticates if we are logged in or not.
+store.firebaseAuthIsReady.then(() => {
+  ReactDOM.render(
+    <Provider store={store}>
+      {/* The value passed to the store attribute will be passed to all the child elements and also to all the descendent elements */}
+      <App />
+    </Provider>,
+    document.getElementById('root')
+  );
+});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
