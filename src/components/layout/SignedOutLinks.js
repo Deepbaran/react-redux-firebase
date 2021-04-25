@@ -6,10 +6,10 @@ const SignedOutLinks = () => {
     <div>
       <ul className="right">
         <li>
-          <NavLink to="/signup">Signup</NavLink>
+          <NavLink to="/react-redux-firebase-app/signup">Signup</NavLink>
         </li>
         <li>
-          <NavLink to="/signin">Login</NavLink>
+          <NavLink to="/react-redux-firebase-app/signin">Login</NavLink>
         </li>
       </ul>
     </div>

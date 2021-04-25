@@ -25,7 +25,7 @@ class CreateProject extends Component {
   render() {
     const { auth } = this.props;
     if (!auth.uid) {
-      return <Redirect to="/signin" />;
+      return <Redirect to="/react-redux-firebase-app/signin" />;
     }
     return (
       <div className="container">

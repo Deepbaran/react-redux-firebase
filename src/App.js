@@ -14,15 +14,26 @@ class App extends Component {
         <div className="App">
           <Navbar />
           <Switch>
-            <Route path="/" component={Dashboard} exact />
+            <Route
+              path="/react-redux-firebase-app"
+              component={Dashboard}
+              exact
+            />
             {/* We need to put exact because /project/:id also have / in its url. So, unless and until we put exact, the router will
             keep routing to Dashboard. Router routes to the shortest matching url if exact is not given (IMO) */}
-            <Route path="/project/:id" component={ProjectDetails} exact />
+            <Route
+              path="/react-redux-firebase-app/project/:id"
+              component={ProjectDetails}
+              exact
+            />
             {/*\:id is the route parameter*/}
             {/*When we attach a component to React Router, the react router attaches some default props to the component.*/}
-            <Route path="/signin" component={SignIn} />
-            <Route path="/signup" component={SignUp} />
-            <Route path="/create" component={CreateProject} />
+            <Route path="/react-redux-firebase-app/signin" component={SignIn} />
+            <Route path="/react-redux-firebase-app/signup" component={SignUp} />
+            <Route
+              path="/react-redux-firebase-app/create"
+              component={CreateProject}
+            />
           </Switch>
         </div>
       </BrowserRouter>

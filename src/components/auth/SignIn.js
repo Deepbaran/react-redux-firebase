@@ -22,7 +22,7 @@ class SignIn extends Component {
   render() {
     const { authError, auth } = this.props;
     if (auth.uid) {
-      return <Redirect to="/" />;
+      return <Redirect to="/react-redux-firebase-app" />;
     }
     return (
       <div className="container">

@@ -13,7 +13,7 @@ const ProjectDetails = props => {
 
   const { project, auth } = props;
   if (!auth.uid) {
-    return <Redirect to="/signin" />;
+    return <Redirect to="/react-redux-firebase-app/signin" />;
   }
   console.log(props);
   if (project) {
