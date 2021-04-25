@@ -18,7 +18,7 @@ class CreateProject extends Component {
     e.preventDefault();
     // console.log(this.state);
     this.props.createProject(this.state);
-    this.props.history.push('/'); // This will redirect the page to the specifid directory
+    this.props.history.push('/react-redux-firebase'); // This will redirect the page to the specifid directory
     // Whenever we use router, it sends some propertis as props to the components. history is one of them.
   };
 
